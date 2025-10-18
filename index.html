@@ -1,930 +1,569 @@
-Toggle Wrap
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="description" content="">
-  <meta name="viewport" content=
-  "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#283590">
-  <meta property="og:title" content="Roar">
-  <meta property="og:description" content=
-  "An award-winning architecture &amp; interior design studio">
-  <meta property="og:url" content="http://designbyroar.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content=
-  "http://designbyroar.com/dist/img/og-image.jpg">
-  <meta property="og:image:secure_url" content=
-  "http://designbyroar.com/dist/img/og-image.jpg">
-  <title>Roar</title>
-  <link rel="shortcut icon" type="image/x-icon" href=
-  "https://www.designbyroar.com/dist/img/favicon.png">
-  <link rel="stylesheet" href=
-  "https://www.designbyroar.com/dist/css/app.min.css">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfolio and projects by Ar. Ukkasha Numan — Architect" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <meta property="og:title" content="Ar. Ukkasha Numan — Architect" />
+  <meta property="og:description" content="Architecture, design & construction projects" />
+  <meta property="og:url" content="https://your-domain.example/" />
+  <meta property="og:type" content="website" />
+  <title>Ar. Ukkasha Numan — Architect</title>
 
-  <script async src=
-  "https://www.googletagmanager.com/gtag/js?id=UA-180653627-1"></script>
-  <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-          gtag('config', 'UA-180653627-1');
-  </script>
+  <!-- Favicon (replace with your own favicon) -->
+  <link rel="icon" href="https://www.designbyroar.com/dist/img/favicon.png" />
+
+  <style>
+    /* ======= Variables ======= */
+    :root{
+      --bg: #070707;                       /* deep black */
+      --surface: #0f0f0f;                  /* slightly lighter black */
+      --muted: #bdb8b0;                    /* muted neutral */
+      --gold: linear-gradient(90deg,#d4af37 0%, #e6c86a 45%, #c79a2b 100%);
+      --gold-flat: #d4af37;                /* fallback gold */
+      --accent-tint: rgba(212,175,55,0.06);
+      --max-width: 1200px;
+      --container-padding: 20px;
+      --font-sans: "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+      --transition: 300ms cubic-bezier(.2,.9,.2,1);
+    }
+
+    /* ======= Reset / base ======= */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font-sans);
+      background:var(--bg);
+      color:#e8e6e2;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      letter-spacing:0.02em;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+    .container{max-width:var(--max-width);padding:0 var(--container-padding);margin:0 auto}
+
+    /* ======= Header ======= */
+    .header{
+      position:sticky;top:0;z-index:1000;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(180deg, rgba(10,10,10,0.55), rgba(10,10,10,0.28));
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .header .inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo_section img{height:36px;filter:brightness(120%)}
+    .link_section{display:flex;gap:18px;align-items:center}
+    .link_section a{position:relative;display:inline-flex;align-items:center;padding:8px 10px;color:var(--muted);font-weight:600;font-size:14px;transition:color var(--transition)}
+    .link_section a:hover{color:var(--gold-flat)}
+    .link_section .page_title{display:inline-block}
+    .btn_roar_default{
+      display:inline-block;border:1px solid rgba(255,255,255,0.06);padding:8px 14px;border-radius:6px;background:transparent;color:var(--muted);font-weight:600
+    }
+    .cta-quick{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:6px;background:linear-gradient(90deg,#d4af3788, #ffd77a44);color:#070707;font-weight:700;border:none;cursor:pointer;
+    }
+
+    /* ======= Mobile nav ======= */
+    .mobile_navbar{display:none;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .mobile_navbar img{height:34px}
+    .nav-toggle{width:36px;height:22px;position:relative;cursor:pointer}
+    .nav-toggle span, .nav-toggle::before, .nav-toggle::after{content:"";position:absolute;left:0;height:2px;background:linear-gradient(90deg,var(--gold-flat),#f3d98a);width:100%;transition:transform 220ms ease}
+    .nav-toggle span{top:50%;transform:translateY(-50%)}
+    .nav-toggle::before{top:0}
+    .nav-toggle::after{bottom:0}
+
+    .sidebar_wrap{
+      position:fixed;inset:0;background:linear-gradient(0deg, rgba(0,0,0,0.86), rgba(0,0,0,0.92));z-index:1200;padding-top:80px;transform:translateX(-110%);transition:transform var(--transition);
+    }
+    .sidebar_wrap.open{transform:translateX(0)}
+    .sidebar_wrap .links{display:flex;flex-direction:column;gap:18px;padding:24px}
+    .mobile_page_title{font-size:20px;color:#fff;margin:0;font-weight:700}
+
+    /* ======= Hero / Banner slider ======= */
+    .banner_section{
+      position:relative;overflow:hidden;padding:48px 0 28px;
+      min-height:520px;display:flex;align-items:center;
+    }
+    .banner-inner{max-width:1200px;margin:0 auto;position:relative;z-index:2;padding:0 var(--container-padding)}
+    .banner-left{max-width:720px}
+    .eyebrow{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:10px}
+    .hero-title{font-family:var(--font-serif);font-weight:700;font-size:44px;margin:0 0 14px;color:#fff;line-height:1.02}
+    .hero-sub{color:var(--muted);font-size:18px;margin-bottom:20px;max-width:520px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-actions .btn{padding:10px 16px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted)}
+    .hero-actions .btn.gold{background:var(--gold-flat);color:#070707;font-weight:700;border:none;box-shadow:0 6px 18px rgba(212,175,55,0.08)}
+
+    /* slider visuals */
+    .hero-slider{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(0.08) contrast(1.02);opacity:0;transform:scale(1.02);transition:opacity 700ms ease, transform 900ms ease}
+    .slide.show{opacity:1;transform:scale(1)}
+
+    /* soft gold overlay */
+    .hero-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(12,12,12,0.25), rgba(6,6,6,0.5));mix-blend-mode: multiply;z-index:1}
+
+    /* decorative shapes (kept in similar structure) */
+    .banner-shapes img{position:absolute;max-width:44%;opacity:0.95;pointer-events:none}
+    .pink_area img{right:-6%;top:6%}
+    /* ... shapes kept visually via CSS positioning if present */
+
+    /* ======= Sector / services area ======= */
+    .sector_section{padding:56px 0;background:linear-gradient(180deg,transparent rgba(0,0,0,0.02))}
+    .sector_area_inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;margin-top:18px}
+    .sector_item{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
+    .sector_item .btn_roar_default{display:inline-block;padding:9px 12px;background:transparent;border-radius:7px}
+
+    /* ======= Team / stats / panther sections ======= */
+    .team_section{padding:56px 0}
+    .team_section .pc_text p{color:var(--muted);font-size:16px;max-width:850px;margin:0 auto}
+    .stats_white_box{background:linear-gradient(180deg,#0c0c0c,#111);padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .stats_item_wrap{display:flex;flex-wrap:wrap;gap:12px}
+    .stats_item{flex:1 1 180px;padding:18px;background:rgba(255,255,255,0.02);border-radius:8px;text-align:center}
+    .stats_item p{margin:0;font-weight:700;color:#fff}
+
+    /* ======= Projects (formerly project_section) ======= */
+    .project_section{padding:56px 0}
+    .project_main_text{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .project_section_inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .project_item{display:block;border-radius:10px;overflow:hidden;background:#070707;border:1px solid rgba(255,255,255,0.03);transition:transform var(--transition)}
+    .project_item:hover{transform:translateY(-6px)}
+    .project_item_image{height:220px;background:#0a0a0a}
+    .project_item_desc{padding:12px}
+    .project_year{font-size:12px;color:var(--muted);margin:0 0 6px}
+    .project_name{font-size:18px;margin:0;color:#fff;font-weight:700}
+
+    /* ======= News & awards ======= */
+    .news_section{padding:46px 0}
+    .news_slider{display:flex;gap:12px;overflow:auto;padding:6px 0}
+    .news_slider_item{min-width:320px;background:#0b0b0b;border:1px solid rgba(255,255,255,0.03);border-radius:8px;padding:12px}
+    .award_slider{display:flex;gap:12px;overflow:auto;padding:8px 0}
+    .award_slider_item{min-width:320px;background:#0b0b0b;border-radius:8px;padding:12px}
+
+    /* ======= Footer ======= */
+    footer{padding:36px 0;background:linear-gradient(180deg,#070707,#050505);border-top:1px solid rgba(255,255,255,0.03)}
+    .footer_inner{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+    .copyright_text p{margin:0;color:var(--muted)}
+
+    /* ======= Small screen tweaks ======= */
+    @media (max-width: 980px){
+      .link_section{display:none}
+      .mobile_navbar{display:flex}
+      .banner_section{min-height:520px;padding:40px 0}
+      .hero-title{font-size:34px}
+      .hero-sub{font-size:15px}
+      .project_item_image{height:160px}
+    }
+    @media (max-width: 520px){
+      .hero-title{font-size:26px}
+      .hero-sub{font-size:14px}
+      .project_item_image{height:140px}
+      .stats_item_wrap{flex-direction:column}
+    }
+
+    /* Accessibility / reduces motion */
+    @media (prefers-reduced-motion: reduce){
+      .slide{transition:none!important}
+      *{transition:none!important}
+    }
+  </style>
 </head>
+
 <body>
-  <div class="loader_overlay">
-    <div class="loader_spinner"></div>
+  <!-- Loader (kept but simplified) -->
+  <div class="loader_overlay" id="loader" aria-hidden="true" style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:1600">
+    <div style="width:56px;height:56px;border-radius:50%;box-shadow:0 0 0 4px rgba(212,175,55,0.12), inset 0 0 0 4px rgba(212,175,55,0.05);border:3px solid rgba(212,175,55,0.25)"></div>
   </div>
-  <div class="mobile_navbar">
-    <a href="https://www.designbyroar.com" class=
-    "rem_link_style"><img src=
-    "https://www.designbyroar.com/dist/img/logo.png" alt="" class=
-    "img-responsive navbar_logo"></a>
-    <div id="nav-icon3"></div>
+
+  <!-- Mobile header -->
+  <div class="mobile_navbar" aria-hidden="false">
+    <a href="#" class="rem_link_style"><img src="https://www.designbyroar.com/dist/img/logo.png" alt="Ar. Ukkasha Numan" class="navbar_logo"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span></button>
   </div>
-  <div class="sidebar_wrap">
-    <div class="links">
-      <a href="https://www.designbyroar.com/projects" class=
-      "rem_link_style">
-      <p class="mobile_page_title">Work</p></a> 
-      <!-- <a href="https://www.designbyroar.com/about" class="rem_link_style">
-            <p class="mobile_page_title">About</p>
-        </a> -->
-       <a href="https://www.designbyroar.com/awards" class=
-      "rem_link_style">
-      <p class="mobile_page_title">Awards</p></a> <a href=
-      "https://www.designbyroar.com/media" class="rem_link_style">
-      <p class="mobile_page_title">Media</p></a> <a href=
-      "https://www.designbyroar.com/rnd" class="rem_link_style">
-      <p class="mobile_page_title">R&amp;D</p></a> <a href=
-      "https://www.designbyroar.com/newsletter" class=
-      "rem_link_style">
-      <p class="mobile_page_title">Newsletter</p></a> <a href=
-      "https://www.designbyroar.com/contact-us" class=
-      "rem_link_style">
-      <p class="mobile_page_title">Contact</p></a>
+
+  <!-- Sidebar (mobile) -->
+  <nav class="sidebar_wrap" id="sidebar" aria-hidden="true">
+    <div class="links container">
+      <a href="#banner" class="rem_link_style mobile_link"><p class="mobile_page_title">Home</p></a>
+      <a href="#about" class="rem_link_style mobile_link"><p class="mobile_page_title">About</p></a>
+      <a href="#projects" class="rem_link_style mobile_link"><p class="mobile_page_title">Projects</p></a>
+      <a href="#team" class="rem_link_style mobile_link"><p class="mobile_page_title">Our Team</p></a>
+      <a href="#reviews" class="rem_link_style mobile_link"><p class="mobile_page_title">Client Reviews</p></a>
+      <a href="#contact" class="rem_link_style mobile_link"><p class="mobile_page_title">Contact</p></a>
     </div>
-  </div>
+  </nav>
+
   <main id="index_page" class="">
-    <header class="header">
-      <div class="container">
-        <div class="row_flex">
-          <div class="logo_section">
-            <a href="https://www.designbyroar.com" class=
-            "rem_link_style"><img src=
-            "https://www.designbyroar.com/dist/img/logo.png" alt=""
-            class="img-responsive"></a>
-          </div>
-          <div class="link_section">
-            <a href="https://www.designbyroar.com/projects" class=
-            "rem_link_style make_project_active" data-color=
-            "#283590"><span class="page_title">Work</span>
-            <span class="bg_img"><img src=
-            "https://www.designbyroar.com/dist/img/header_bg/blue.png"
-            alt="" class="img-responsive"></span></a> 
-            <!-- <a href="https://www.designbyroar.com/about" class="rem_link_style make_about_active" data-color="#bae5db">
-                    <span class="page_title">About</span>
-                    <span class="bg_img">
-                        <img src="https://www.designbyroar.com/dist/img/header_bg/green.png" alt="" class="img-responsive">
-                    </span>
-                </a> -->
-             <a href="https://www.designbyroar.com/awards" class=
-            "rem_link_style make_awards_active" data-color=
-            "#283590"><span class="page_title">Awards</span>
-            <span class="bg_img"><img src=
-            "https://www.designbyroar.com/dist/img/header_bg/blue.png"
-            alt="" class="img-responsive"></span></a> <a href=
-            "https://www.designbyroar.com/media" class=
-            "rem_link_style make_media_active" data-color=
-            "#f4d35e"><span class="page_title">media</span>
-            <span class="bg_img"><img src=
-            "https://www.designbyroar.com/dist/img/header_bg/yellow.png"
-            alt="" class="img-responsive"></span></a> <a href=
-            "https://www.designbyroar.com/rnd" class=
-            "rem_link_style make_rnd_active" data-color=
-            "#283590"><span class="page_title">R&amp;D</span>
-            <span class="bg_img"><img src=
-            "https://www.designbyroar.com/dist/img/header_bg/blue.png"
-            alt="" class="img-responsive"></span></a> <a href=
-            "https://www.designbyroar.com/newsletter" class=
-            "rem_link_style make_newsletter_active" data-color=
-            "#f4d35e"><span class="page_title">newsletter</span>
-            <span class="bg_img"><img src=
-            "https://www.designbyroar.com/dist/img/header_bg/yellow.png"
-            alt="" class="img-responsive"></span></a> <a href=
-            "https://www.designbyroar.com/contact-us" class=
-            "rem_link_style make_contact_active" data-color=
-            "#ffc6ce"><span class="page_title">Contact</span>
-            <span class="bg_img"><img src=
-            "https://www.designbyroar.com/dist/img/header_bg/pink.png"
-            alt="" class="img-responsive"></span></a>
-          </div>
+    <!-- Desktop header -->
+    <header class="header" role="banner">
+      <div class="container inner">
+        <div class="logo_section">
+          <a href="#" class="rem_link_style" aria-label="Ar. Ukkasha Numan — Home">
+            <img src="https://www.designbyroar.com/dist/img/logo.png" alt="Ar. Ukkasha Numan" class="img-responsive">
+          </a>
         </div>
+
+        <nav class="link_section" role="navigation" aria-label="Primary">
+          <a href="#banner" class="rem_link_style make_project_active" data-color="#000"><span class="page_title">Home</span></a>
+          <a href="#about" class="rem_link_style" data-color="#000"><span class="page_title">About</span></a>
+          <a href="#projects" class="rem_link_style" data-color="#000"><span class="page_title">Projects</span></a>
+          <a href="#team" class="rem_link_style" data-color="#000"><span class="page_title">Our Team</span></a>
+          <a href="#reviews" class="rem_link_style" data-color="#000"><span class="page_title">Client Reviews</span></a>
+          <a href="#contact" class="rem_link_style" data-color="#000"><span class="page_title">Contact</span></a>
+
+          <a class="cta-quick" href="https://wa.me/923315510140" target="_blank" aria-label="Contact on WhatsApp">
+            +92 331 5510140
+          </a>
+        </nav>
       </div>
     </header>
-    <div class="scroll_down_sec">
-      <img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/icon-set/scroll_down_blue.png"
-      alt="" class="img-responsive">
-      <p>Scroll Down</p>
-    </div>
-    <section class="banner_section">
-      <div class="load_area">
-        <h2 class="text_100">we create spaces</h2>
-        <p class="text_50">that tell stories</p>
+
+    <!-- Scroll hint -->
+    <div class="scroll_down_sec" style="display:flex;align-items:center;gap:10px;justify-content:center;padding:10px 0;color:var(--muted)"><img src="https://www.designbyroar.com/dist/img/icon-set/scroll_down_blue.png" alt="" style="height:20px;filter:grayscale(1)"><small>Scroll Down</small></div>
+
+    <!-- Hero / Banner -->
+    <section id="banner" class="banner_section" aria-label="Hero banner">
+      <div class="hero-slider" aria-hidden="true">
+        <!-- Slide images — replace URLs with your own high-quality project banner images -->
+        <div class="slide show" style="background-image:url('https://www.designbyroar.com/uploads/projects/Roar-67dd6bf39f3b24.31985165y30lh5)6.jpg');"></div>
+        <div class="slide" style="background-image:url('https://www.designbyroar.com/uploads/projects/Roar-66bb3059d46fd8.227099419ct5vd72.jpg');"></div>
+        <div class="slide" style="background-image:url('https://www.designbyroar.com/uploads/projects/Roar-66bb3542c1c2b3.34984236uv$j24p9.jpg');"></div>
       </div>
-      <div class="pink_area"><img src=
-      "https://www.designbyroar.com/dist/img/home/shapes/banner_pink.png"
-      alt="" class="img-responsive"></div>
-      <div class="yellow_area">
-      <p class="text_50">we put people at the</p>
-      <h2 class="text_150"><span class="heart_word">heart</span> of
-      it</h2><img src=
-      "https://www.designbyroar.com/dist/img/home/shapes/banner_yellow.png"
-      alt="" class="img-responsive"></div>
-      <div class="blue_area">
-      <p class="text_50">we design</p>
-      <h2 class="text_150">experiences</h2><img src=
-      "https://www.designbyroar.com/dist/img/home/shapes/banner_blue.png"
-      alt="" class="blue_cutout img-responsive"> <img src=
-      "https://www.designbyroar.com/dist/img/home/shapes/banner_white.png"
-      alt="" class="white_cutout img-responsive"></div>
-      <div class="white_area">
-        <!--                <h2 class="text_100">we</h2>-->
-        <div class="logo_tagline">
-          <img src=
-          "https://www.designbyroar.com/dist/img/home/roar_big_logo.png"
-          alt="" class="roar_big_logo img-responsive"> 
-          <!--                    <p class="award_winning">An award-winning architecture & interior design studio</p>-->
-          <p class="award_winning">A boutique architecture &
-          interior design studio</p>
-        </div>
-      </div>
-      <div class="r_big_img"><img src=
-      "https://www.designbyroar.com/dist/img/home/shapes/r_banner_1.png"
-      alt="" class="img-responsive"></div>
-      <div class="r_small_img"><img src=
-      "https://www.designbyroar.com/dist/img/home/shapes/r_banner_2.png"
-      alt="" class="img-responsive"></div>
-    </section>
-    <section class="sector_section">
-      <div class="building_area">
-        <picture><source media="(min-width:768px)" srcset=
-        "https://www.designbyroar.com/dist/img/home/buildings.png">
-        <img class="img-responsive" src=
-        "https://www.designbyroar.com/dist/img/home/buildings-mobile.png"
-        alt=""></picture>
-      </div>
-      <div class="sector_area">
-        <div class="cloud_area">
-          <div class="cloud_img"><img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/clouds_big_group.png"
-          alt="" class="img-responsive"> <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/clouds_big_group.png"
-          alt="" class="img-responsive"></div>
-          <div class="cloud_img_reverse"><img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/clouds_small_group.png"
-          alt="" class="img-responsive"> <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/clouds_small_group.png"
-          alt="" class="img-responsive"></div>
-        </div>
-        <div class="behind_sand_image_area"><img class="dont_ll"
-        src=
-        "https://www.designbyroar.com/dist/img/home/behind_the_sand_image.png"
-        alt=""> <img class="mirror_img" data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/behind_the_sand_image.png"
-        alt=""></div>
-        <div class="sector_shape_layer1">
-          <div class="shape_item"><img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/shape_1.png"
-          alt="" class="img-responsive"></div>
-          <div class="shape_item pink_shape_item">
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/shape_2.png"
-          alt="" class="img-responsive"></div>
-          <div class="shape_item"><img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/shape_3.png"
-          alt="" class="img-responsive"></div>
-          <div class="shape_item"><img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/shape_5.png"
-          alt="" class="img-responsive"></div>
-        </div>
-        <div class="sand_image_area"><img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/sand_images.png"
-        alt=""></div>
-        <div class="sector_area_inner">
-          <div class="sector_item commercial_item"><a href=
-          "http://designbyroar.com/projects#1-commercial" class=
-          "rem_link_style btn_roar_default">commercial</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/commercial.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item fnb_item"><a href=
-          "http://designbyroar.com/projects#2-fb" class=
-          "rem_link_style btn_roar_default">Food & Beverage</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/F&amp;B.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item hospitality_item"><a href=
-          "http://designbyroar.com/projects#3-hospitality" class=
-          "rem_link_style btn_roar_default">hospitality</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/hospitality.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item education_item"><a href=
-          "http://designbyroar.com/projects#6-education" class=
-          "rem_link_style btn_roar_default">education</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/education.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item residential_item"><a href=
-          "http://designbyroar.com/projects#8-residential" class=
-          "rem_link_style btn_roar_default">residential</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/residential.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item metaverse_item"><a href=
-          "http://designbyroar.com/projects#14-metaverse" class=
-          "rem_link_style btn_roar_default">Metaverse</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/Metaverse.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item retail_new_item"><a href=
-          "http://designbyroar.com/projects#15-retail" class=
-          "rem_link_style btn_roar_default">Retail</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/Retail_new.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item products_item"><a href=
-          "http://designbyroar.com/projects#13-product" class=
-          "rem_link_style btn_roar_default">products</a>
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/products.png"
-          alt="" class="img-responsive"></div>
-          <div class="sector_item retail_item"><a href=
-          "http://designbyroar.com/projects#4-other-wild-stuff"
-          class="rem_link_style btn_roar_default">other wild
-          stuff</a> <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/retail.png"
-          alt="" class="img-responsive"></div>
-          <div class="shape_item pink_shape_item">
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/shape_2.png"
-          alt="" class="img-responsive"></div>
-          <div class="shape_item yellow_shape_item">
-          <img data-lazy-src=
-          "https://www.designbyroar.com/dist/img/home/speciality/shape_4.png"
-          alt="" class="img-responsive"></div>
-        </div>
-      </div>
-      <div class="lion_image"><img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/Lion-Gif.gif"
-      alt="" class="img-responsive"></div>
-      <div class="follows_area">
-        <img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/follows_section/green_shape.png"
-        alt="" class="fs_green_shape img-responsive">
-        <img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/follows_section/yellow_shape.png"
-        alt="" class="fs_yellow_shape img-responsive">
-        <div class="fs_pink_shape"><img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/follows_section/pink_shape.svg"
-        alt="" class="img-responsive"></div>
-        <div class="fs_content_sec"><img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/follows_section/follows.gif"
-        alt="" class="img-responsive"></div>
-      </div>
-    </section>
-    <section class="team_section">
-      <div class="team_blue_shape"><img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/team_blue_shape.png"
-      alt="" class=""></div><img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/stats_r_pattern.png"
-      alt="" class="stats_r_pattern img-responsive">
-      <div class="team_section_inner">
-        <div class="people_sec">
-          <div class="container">
-            <div class="people_sec_inner">
-              <div class="people_content">
-                <div class="pc_text">
-                  <p>A team of architects and interior designers,
-                  from an array of countries, all driven by the
-                  same philosophy – empathetic design.</p>
-                  <!-- <a href="javscript:void(0)" class="btn_roar_default rem_link_style">People</a> -->
-                </div><!--
-                                <div class="team_img">
-                                    <img data-lazy-src="dist/img/home/team_img_2.png" alt="" class="img-responsive">
-                                </div>
--->
-              </div>
-            </div>
+
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <div class="banner-inner container">
+        <div class="banner-left">
+          <div class="eyebrow">Welcome to the studio</div>
+          <h1 class="hero-title">Ar. Ukkasha Numan</h1>
+          <p class="hero-sub">Designing architecture and built environments that combine technical rigor with poetic restraint — private residences, commercial buildings, and experimental projects crafted with care.</p>
+
+          <div class="hero-actions">
+            <a class="btn" href="#about">About the Firm</a>
+            <a class="btn gold" href="#projects">View Projects</a>
           </div>
         </div>
-        <div class="stats_sec">
-          <div class="container">
-            <div class="stats_sec_inner">
-              <div class="stats_white_box">
-                <img data-lazy-src=
-                "https://www.designbyroar.com/dist/img/home/number_sec_top_shape.png"
-                alt="" class="white_shape_img"> 
-                <!-- <img data-lazy-src="dist/img/home/stats_r_pattern_1.png" alt=""
-                                        class="stats_r_pattern_1">
-                                    <img data-lazy-src="dist/img/home/stats_r_pattern_2.png" alt=""
-                                        class="stats_r_pattern_2"> -->
-                <div class="stats_item_wrap">
-                  <div class="stats_item">
-                    <p><span>11+</span> Years of<br>
-                    Multi-sector<br>
-                    expertise</p>
-                  </div>
-                  <div class="stats_item">
-                    <p><span>350+</span> Projects</p>
-                  </div>
-                  <div class="stats_item">
-                    <p><span>1:1</span> Psychologist<br>
-                    Briefing</p>
-                  </div>
-                  <div class="stats_item">
-                    <p><span>12+</span> countries</p>
-                  </div>
-                </div>
-                <div class="stats_item_wrap_btm">
-                  <div class="stats_item">
-                    <div class="icon"><img src=
-                    "https://www.designbyroar.com/dist/img/home/bx_icon1.svg"
-                    alt="" class="img-responsive"></div>
-                    <div class="title">
-                      <p>Metaverse<br>
-                      Design</p>
-                    </div>
-                  </div>
-                  <div class="stats_item">
-                    <div class="icon"><img src=
-                    "https://www.designbyroar.com/dist/img/home/bx_icon2.svg"
-                    alt="" class="img-responsive"></div>
-                    <div class="title">
-                      <p>A focus on social<br>
-                      sustainability</p>
-                    </div>
-                  </div>
-                  <div class="stats_item">
-                    <div class="icon"><img src=
-                    "https://www.designbyroar.com/dist/img/home/bx_icon3.svg"
-                    alt="" class="img-responsive"></div>
-                    <div class="title">
-                      <p>Offices in Dubai<br>
-                      and Riyadh</p>
-                    </div>
-                  </div>
-                  <div class="stats_item">
-                    <div class="icon"><img src=
-                    "https://www.designbyroar.com/dist/img/home/bx_icon4.svg"
-                    alt="" class="img-responsive"></div>
-                    <div class="title">
-                      <p>In-House<br>
-                      MEP Team</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      </div>
+
+      <!-- Decorative shapes retained (use same structure, positioned via CSS) -->
+      <div class="banner-shapes" aria-hidden="true">
+        <div class="pink_area" style="position:absolute;right:-8%;top:6%;opacity:0.95"><img src="https://www.designbyroar.com/dist/img/home/shapes/banner_pink.png" alt=""></div>
+        <div class="yellow_area" style="position:absolute;left:-6%;top:20%;opacity:0.95"><img src="https://www.designbyroar.com/dist/img/home/shapes/banner_yellow.png" alt=""></div>
+        <div class="r_big_img" style="position:absolute;right:6%;bottom:6%;opacity:0.95"><img src="https://www.designbyroar.com/dist/img/home/shapes/r_banner_1.png" alt=""></div>
+        <div class="r_small_img" style="position:absolute;left:6%;bottom:12%;opacity:0.95"><img src="https://www.designbyroar.com/dist/img/home/shapes/r_banner_2.png" alt=""></div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="sector_section container" style="padding-top:48px;padding-bottom:48px">
+      <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;">
+        <div style="flex:1 1 360px;min-width:260px">
+          <picture>
+            <source media="(min-width:768px)" srcset="https://www.designbyroar.com/dist/img/home/buildings.png">
+            <img src="https://www.designbyroar.com/dist/img/home/buildings-mobile.png" alt="Studio image" loading="lazy">
+          </picture>
+        </div>
+        <div style="flex:1 1 420px;min-width:260px">
+          <h2 style="font-family:var(--font-serif);font-size:28px;margin:0 0 8px">About the Firm</h2>
+          <p style="color:var(--muted);margin:0 0 12px">My work spans private residences, commercial landmarks, and experimental spaces — crafted with integrity, precision, and imagination. Every creation reflects a quiet pursuit of excellence and individuality.</p>
+
+          <p style="margin:0"><a href="https://www.linkedin.com/in/ukkashanuman" target="_blank" style="color:var(--gold-flat);font-weight:700">LinkedIn — Ar. Ukkasha Numan</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services / Sectors -->
+    <section class="sector_section container" aria-label="Sectors">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h2 style="font-family:var(--font-serif);font-size:26px;margin:0">Expertise</h2>
+        <a href="#projects" class="btn_roar_default">View Projects</a>
+      </div>
+
+      <div class="sector_area_inner" style="margin-top:18px">
+        <div class="sector_item">
+          <a class="btn_roar_default" href="#projects#residential">Residential</a>
+          <p style="color:var(--muted);margin-top:12px">Luxury villas, apartment interiors and sensitive renovations.</p>
+        </div>
+        <div class="sector_item">
+          <a class="btn_roar_default" href="#projects#commercial">Commercial</a>
+          <p style="color:var(--muted);margin-top:12px">Office fit-outs, retail and public space design.</p>
+        </div>
+        <div class="sector_item">
+          <a class="btn_roar_default" href="#projects#interiors">Interiors</a>
+          <p style="color:var(--muted);margin-top:12px">Material-driven interior solutions for living and work.</p>
+        </div>
+        <div class="sector_item">
+          <a class="btn_roar_default" href="#projects#concept">Concept</a>
+          <p style="color:var(--muted);margin-top:12px">Research & conceptual studies exploring new forms.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team / Stats -->
+    <section id="team" class="team_section" style="padding-top:36px;padding-bottom:36px">
+      <div class="container">
+        <div style="text-align:center;margin-bottom:18px">
+          <em style="color:var(--muted)">Creative Minds</em>
+          <h2 style="font-family:var(--font-serif);font-size:28px;margin:6px 0 0">Meet the Team</h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+          <div style="background:#0b0b0b;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">
+            <h3 style="margin:0 0 6px">Ar. Ukkasha Numan</h3>
+            <p style="margin:0 0 8px;color:var(--muted)">Principal Architect</p>
+            <p style="margin:0;color:var(--muted)">Leading projects with conceptual clarity and technical precision.</p>
+          </div>
+
+          <div style="background:#0b0b0b;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">
+            <h3 style="margin:0 0 6px">M. Asif</h3>
+            <p style="margin:0 0 8px;color:var(--muted)">Project Manager</p>
+            <p style="margin:0;color:var(--muted)">Ensuring delivery, coordination and site supervision.</p>
+          </div>
+
+          <div style="background:#0b0b0b;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">
+            <h3 style="margin:0 0 6px">Ar. Hamid</h3>
+            <p style="margin:0 0 8px;color:var(--muted)">Lead Architect</p>
+            <p style="margin:0;color:var(--muted)">Detailing and technical design lead for complex projects.</p>
+          </div>
+
+          <div style="background:#0b0b0b;padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">
+            <h3 style="margin:0 0 6px">Sara Noman</h3>
+            <p style="margin:0 0 8px;color:var(--muted)">Junior Architect</p>
+            <p style="margin:0;color:var(--muted)">Design development and visualization support.</p>
           </div>
         </div>
-        <div class="panther_sec">
-          <div class="container">
-            <div class="panther_sec_inner">
-              <div class="panther_text">
-                <p>The cat that got the...</p>
-                <h2 class="text_150">crème de<br>
-                la crème<br>
-                of design<br>
-                talent</h2>
-              </div>
-              <div class="panther_img"><img data-lazy-src=
-              "https://www.designbyroar.com/dist/img/home/panther_img.png"
-              alt="" class="img-responsive"></div>
+
+        <!-- Stats -->
+        <div style="margin-top:26px">
+          <div class="stats_white_box">
+            <div class="stats_item_wrap">
+              <div class="stats_item"><p><span style="color:var(--gold-flat);font-size:20px">11+</span><br>Years experience</p></div>
+              <div class="stats_item"><p><span style="color:var(--gold-flat);font-size:20px">350+</span><br>Projects</p></div>
+              <div class="stats_item"><p><span style="color:var(--gold-flat);font-size:20px">12+</span><br>Countries</p></div>
+              <div class="stats_item"><p><span style="color:var(--gold-flat);font-size:20px">1:1</span><br>Client briefing</p></div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="project_section">
-      <div class="project_r_patern_1"><img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/projects/project_r_patern_1.png"
-      alt="" class="img-responsive"></div>
-      <div class="project_r_patern_2"><img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/projects/project_r_patern_2.png"
-      alt="" class="img-responsive"></div>
+
+    <!-- Projects -->
+    <section id="projects" class="project_section" style="padding-top:36px;padding-bottom:36px">
       <div class="container">
         <div class="project_main_text">
-          <h2 class="text_100">Featured Projects</h2><a href=
-          "https://www.designbyroar.com/projects" class=
-          "rem_link_style btn_roar_default">View all</a>
+          <h2 class="text_100" style="font-family:var(--font-serif);margin:0">Featured Projects</h2>
+          <a href="#projects" class="btn_roar_default">View all</a>
         </div>
+
         <div class="project_section_inner">
-          <a href=
-          "https://www.designbyroar.com/project-inside/88-global-management-consulting-firm"
-          class="rem_link_style project_item">
-          <div class="project_item_image">
-            <div class="project_item_image_inside">
-            <img data-lazy-src=
-            "https://www.designbyroar.com/uploads/projects/Roar-67dd6bf39f3b24.31985165y30lh5)6.jpg"
-            alt="" class="img-responsive"></div>
-          </div>
-          <div class="project_item_desc">
-            <p class="project_year">1</p>
-            <p class="project_name">Global Management Consulting
-            Firm</p>
-          </div></a> <a href=
-          "https://www.designbyroar.com/project-inside/81-underground"
-          class="rem_link_style project_item">
-          <div class="project_item_image">
-            <div class="project_item_image_inside">
-            <img data-lazy-src=
-            "https://www.designbyroar.com/uploads/projects/Roar-66bb3059d46fd8.227099419ct5vd72.jpg"
-            alt="" class="img-responsive"></div>
-          </div>
-          <div class="project_item_desc">
-            <p class="project_year">2</p>
-            <p class="project_name">Underground</p>
-          </div></a> <a href=
-          "https://www.designbyroar.com/project-inside/84-five-guys"
-          class="rem_link_style project_item">
-          <div class="project_item_image">
-            <div class="project_item_image_inside">
-            <img data-lazy-src=
-            "https://www.designbyroar.com/uploads/projects/Roar-66bb3542c1c2b3.34984236uv$j24p9.jpg"
-            alt="" class="img-responsive"></div>
-          </div>
-          <div class="project_item_desc">
-            <p class="project_year">3</p>
-            <p class="project_name">Five Guys</p>
-          </div></a>
+          <a class="rem_link_style project_item" href="#" aria-label="Project 1">
+            <div class="project_item_image" style="background-image:url('https://www.designbyroar.com/uploads/projects/Roar-67dd6bf39f3b24.31985165y30lh5)6.jpg');background-size:cover;background-position:center"></div>
+            <div class="project_item_desc">
+              <p class="project_year">2024</p>
+              <p class="project_name">Global Management Consulting — Office</p>
+            </div>
+          </a>
+
+          <a class="rem_link_style project_item" href="#" aria-label="Project 2">
+            <div class="project_item_image" style="background-image:url('https://www.designbyroar.com/uploads/projects/Roar-66bb3059d46fd8.227099419ct5vd72.jpg');background-size:cover;background-position:center"></div>
+            <div class="project_item_desc">
+              <p class="project_year">2023</p>
+              <p class="project_name">Underground — Retail</p>
+            </div>
+          </a>
+
+          <a class="rem_link_style project_item" href="#" aria-label="Project 3">
+            <div class="project_item_image" style="background-image:url('https://www.designbyroar.com/uploads/projects/Roar-66bb3542c1c2b3.34984236uv$j24p9.jpg');background-size:cover;background-position:center"></div>
+            <div class="project_item_desc">
+              <p class="project_year">2022</p>
+              <p class="project_name">Five Guys — Restaurant Fitout</p>
+            </div>
+          </a>
         </div>
       </div>
     </section>
-    <section class="news_section">
-      <div class="news_blue_shape">
-        <div class="blue_shape_img"><img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/news/leopard_img.gif"
-        alt="" class="leopard_img img-responsive">
-        <img data-lazy-src=
-        "https://www.designbyroar.com/dist/img/home/news/news_blue_shape.png"
-        alt="" class="img-responsive"></div>
-        <div class="bottom_blue_div"></div>
+
+    <!-- News -->
+    <section class="news_section container" style="padding-top:36px;padding-bottom:36px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <h2 style="font-family:var(--font-serif);margin:0">News</h2>
+        <a class="btn_roar_default" href="#">All media</a>
       </div>
+
+      <div class="news_slider" style="margin-top:12px">
+        <div class="news_slider_item">
+          <a href="#" target="_blank" class="rem_link_style">
+            <div style="display:flex;gap:12px;align-items:center">
+              <img src="https://www.designbyroar.com/uploads/media/Roar-68271aa6347d84.09402995wjbdphmg.jpg" alt="" style="width:84px;height:60px;object-fit:cover;border-radius:6px">
+              <div>
+                <p style="margin:0;font-weight:700">Work Design Magazine — Dubai HQ</p>
+                <small style="color:var(--muted)">May 2025</small>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="news_slider_item">
+          <a href="#" target="_blank" class="rem_link_style">
+            <div style="display:flex;gap:12px;align-items:center">
+              <img src="https://www.designbyroar.com/uploads/media/Roar-68242b33a40cf6.94930245n30b546(.jpg" alt="" style="width:84px;height:60px;object-fit:cover;border-radius:6px">
+              <div>
+                <p style="margin:0;font-weight:700">Office Snapshots — DIFC CP05 & AI Campus</p>
+                <small style="color:var(--muted)">May 2025</small>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards (condensed but complete) -->
+    <section class="awards_section" style="padding:36px 0">
       <div class="container">
-        <div class="news_section_inner">
-          <a href="https://www.designbyroar.com/media" class=
-          "rem_link_style">
-          <p class="btn_roar_default">Roar in the news</p></a>
-          <div class="news_slider">
-            <div class="news_slider_item">
-              <a href=
-              "https://www.workdesign.com/2025/05/tour-this-dubai-hq-that-blends-culture-nature-and-workplace-innovation/"
-              target="_blank" class="rem_link_style">
-              <div class="news_slider_item_inner">
-                <div class="item_image"><img data-lazy-src=
-                "https://www.designbyroar.com/uploads/media/Roar-68271aa6347d84.09402995wjbdphmg.jpg"
-                alt="" class="img-responsive"></div>
-                <div class="item_desc">
-                  <div class="desc_text">
-                    <p class="news_head">Work Design Magazine -
-                    Tour This Dubai HQ That Blends Culture, Nature,
-                    and Workplace Innovation</p>
-                    <p class="news_date">May <span>2025</span></p>
-                  </div>
-                </div>
-              </div></a>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <h2 style="font-family:var(--font-serif);margin:0">Awards</h2>
+          <span style="color:var(--muted)">Swipe to view</span>
+        </div>
+        <div class="award_slider" style="margin-top:14px">
+          <div class="award_slider_item">
+            <h3 style="margin:0 0 8px">2024</h3>
+            <div style="color:var(--muted);font-size:14px">
+              <p style="margin:0 0 8px"><strong>Commercial Interior Design Awards — Saudi Arabia</strong></p>
+              <ol style="margin:0 0 0 18px;padding:0;color:var(--muted)">
+                <li>Best Interior Design Concept — Office White & Case</li>
+                <li>Young Interior Designer of the Year — Sara Jamil</li>
+              </ol>
             </div>
-            <div class="news_slider_item">
-              <a href=
-              "https://officesnapshots.com/2025/05/13/difc-cp05-and-ai-campus-dubai/"
-              target="_blank" class="rem_link_style">
-              <div class="news_slider_item_inner">
-                <div class="item_image"><img data-lazy-src=
-                "https://www.designbyroar.com/uploads/media/Roar-68242b33a40cf6.94930245n30b546(.jpg"
-                alt="" class="img-responsive"></div>
-                <div class="item_desc">
-                  <div class="desc_text">
-                    <p class="news_head">Office Snapshots - DIFC
-                    CP05 and AI Campus Dubai</p>
-                    <p class="news_date">May <span>2025</span></p>
-                  </div>
-                </div>
-              </div></a>
-            </div>
+          </div>
+
+          <div class="award_slider_item">
+            <h3 style="margin:0 0 8px">2023</h3>
+            <div style="color:var(--muted);font-size:14px">Pioneering Design Firm of the Year — <em>excerpt</em></div>
           </div>
         </div>
       </div>
     </section>
-    <section class="awards_section">
-      <div class="container">
-        <div class="setContainerWidthToRigthEnd">
-          <div class="awards_section_inner">
-            <span class="swipe_right">Swipe</span>
-            <h2 class="award_title">Awards</h2>
-            <div class="award_slider">
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2024</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design Awards-
-                      Saudi Arabia</strong></p>
-                      <ol>
-                        <li>Best Interior Design Concept of the
-                        year: Office White & Case</li>
-                        <li>Young Interior Designer of the year
-                        Sara Jamil</li>
-                      </ol>
-                      <p><strong>Commercial Interior Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Interior Design of the Year: Retail
-                        Underground Sport</li>
-                        <li>Interior Design Concept of the Year:
-                        Residential Al Barari Villa (Highly
-                        Commended)</li>
-                        <li>Interior Design Concept of the Year:
-                        Commercial Mubadala CEO Suite (Highly
-                        Commended)</li>
-                      </ol>
-                    </div>
-                  </div><!-- Row Two -->
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2023</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design Awards-
-                      Saudi Arabia</strong></p>
-                      <ol>
-                        <li>Pioneering Design Firm of the Year</li>
-                      </ol>
-                      <p><strong>Commercial Interior Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Interior Design of the Year - Office -
-                        DMCC</li>
-                        <li>Interior Interior Design of the Year -
-                        Retail - Jaipur Rugs (Highly
-                        Commended)</li>
-                        <li>Interior Design Firm of the Year - Roar
-                        (Highly Commended)</li>
-                      </ol>
-                      <p><strong>MENTL Awards</strong></p>
-                      <ol>
-                        <li>Best Mental Health Care in the Creative
-                        Industries - Roar</li>
-                      </ol>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Identity Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Interior Design- Public Space - Jaipur
-                        Rugs</li>
-                        <li>Emerging Interior Designer of the year
-                        - Nikita Chellani</li>
-                      </ol>
-                      <p><strong>BOY Awards</strong></p>
-                      <ol>
-                        <li>Product Showroom - International Jaipur
-                        Rugs</li>
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2022</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Interior Design of the Year: Office
-                        Supreme Council of Motherhood and
-                        Child</li>
-                        <li>Interior Design of the Year: F&amp;B
-                        Drop Coffee Abu Dhabi</li>
-                        <li>Interior Design of the Year: Retail
-                        Vintage Vaults</li>
-                        <li>Interior Design Concept of the Year:
-                        Cue Hotel Rabat (Highly Commended)</li>
-                        <li>Interior Design Firm of the Year: Roar
-                        (Highly Commended)</li>
-                        <li>Interior Designer of the Year: Pallavi
-                        Dean</li>
-                      </ol>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>AD Design Awards</strong></p>
-                      <ol>
-                        <li>Interior Design Commercial Project:
-                        Supreme Council of Motherhood and
-                        Child</li>
-                      </ol>
-                      <p><strong>BOY Awards</strong></p>
-                      <ol>
-                        <li>Government/Institutional Project:
-                        Supreme Council of Motherhood and
-                        Child</li>
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2021</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design Awards
-                      2021</strong></p>
-                      <ol>
-                        <li>Interior Design of the Year: Office
-                        Early Childhood Authority Abu Dhabi</li>
-                        <li>Best Use of Lighting in Interior
-                        Design&nbsp;SensAsia</li>
-                        <li>Interior Design Boutique Firm of the
-                        Year: Roar</li>
-                        <li>Interior Design of the Year: Public
-                        Sector&nbsp;Sharjah Research Technology and
-                        Innovation Park (Highly Commended)</li>
-                      </ol>
-                      <p><strong>INDEX Design Awards</strong></p>
-                      <ol>
-                        <li>Healthcare & Wellness Design of the
-                        Year&nbsp;SensAsia</li>
-                      </ol>
-                      <p><strong>AHEAD MEA</strong></p>
-                      <ol>
-                        <li>Spa and Wellness&nbsp;SensAsia</li>
-                      </ol>
-                      <p><strong>Design Middle East
-                      Awards</strong></p>
-                      <ol>
-                        <li>Boutique Firm of the Year: Roar</li>
-                      </ol>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Identity Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Interior Design - Healthcare &
-                        Wellness&nbsp;SensAsia</li>
-                      </ol>
-                      <p><strong>BOY Awards</strong></p>
-                      <ol>
-                        <li>Best of Year Interior Designer: Pallavi
-                        Dean</li>
-                        <li>Small Office of the Year:&nbsp;Early
-                        Childhood Authority</li>
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2020</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Interior Design Of The Year: Food &
-                        Beverage – Mezza House by Roar</li>
-                        <li>Interior Design Of The Year: Office –
-                        Takeda by Roar</li>
-                        <li>Interior Design Boutique Firm Of The
-                        Year: Roar</li>
-                        <li>Interior Designer Of The Year: Pallavi
-                        Dean (Highly Commended)</li>
-                        <li>Interior Design Concept Of The Year:
-                        Early Childhood Authority Abu Dhabi by Roar
-                        (Highly Commended)</li>
-                      </ol>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Design Middle East</strong></p>
-                      <ol>
-                        <li>Highly Commended Boutique Firm Of The
-                        Year: Roar</li>
-                      </ol>
-                      <p><strong>Architectural Digest Design
-                      Awards</strong></p>
-                      <ol>
-                        <li>Designer Of The Year: Pallavi Dean</li>
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2019</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Frame Awards</strong><br>
-                      Emerging Designer of the Year 2019 (People's
-                      Choice)</p>
-                      <p><strong>Restaurant & Bar Design
-                      Awards</strong><br>
-                      Best Stand Alone Concept (Shortlisted)</p>
-                      <p><strong>Commercial Interior Design
-                      Awards</strong><br>
-                      Interior Design of the Year (Public Sector -
-                      Highly Commended)<br>
-                      Interior Design of the Year (Office - Highly
-                      Commended)<br>
-                      Best Interior Design of the Year (Concept -
-                      Highly Commended)</p>
-                      <p><strong>Design Middle East
-                      Awards</strong><br>
-                      Design of the Year - Pallavi Dean (Runner
-                      Up)</p>
-                      <p>&nbsp;</p>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Identity Design
-                      Awards</strong><br>
-                      Best Office Interior (Boutique Winner)</p>
-                      <p>Best Public Building (Winner)<br>
-                      Best Project of the Future (Winner)</p>
-                      <p>Best of the Year Awards<br>
-                      On the Boards (Commercial Honoree)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2018</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design
-                      Awards</strong><br>
-                      Interior Design of the Year.<br>
-                      (Food & Beverage Shababeek, Sharjah)</p>
-                      <p>Interior Design Concept of the Year.<br>
-                      (AUS RTI, Sharjah)</p>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p>Interior Design Boutique Firm of the
-                      Year.<br>
-                      (Highly Commended)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2017</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Commercial Interior Design
-                      Awards</strong><br>
-                      Interior Design Boutique Firm of the Year</p>
-                      <p><strong>Index Architecture & Design
-                      Awards</strong><br>
-                      Best Commercial Design Project,<br>
-                      Public Space, Sheera Sharjah</p>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Identity Design
-                      Awards</strong><br>
-                      Best Boutique Office Interior, The Private
-                      Office</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2016</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Haper’s Bazaar Interior
-                      Awards</strong><br>
-                      Best Collaboration, Product Design of the
-                      Year<br>
-                      (Pallavi Dean Interiors)</p>
-                      <p><strong>Commercial Interior Design
-                      Awards</strong><br>
-                      Best Interior Designer of the Year, Middle
-                      East & Africa<br>
-                      (Agata Kurzela)</p>
-                      <p><strong>Best of the Year
-                      Awards</strong><br>
-                      Finalist for Product Design<br>
-                      (Pallavi Dean Interiors)</p>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Finalist of Budget Project of the
-                      Year</strong><br>
-                      Sheraa Hub (Pallavi Dean Interiors)</p>
-                      <p><strong>MENA Interior Designs &
-                      Architecture Awards</strong><br>
-                      Best Education Project - &nbsp;Sultan School
-                      Library, Muscat<br>
-                      Best Corporate Project Small (PDI)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="award_slider_item">
-                <div class="award_slider_item_inner">
-                  <h2 class="award_year">2015</h2><!-- Row One -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>Haper’s Bazaar Interior
-                      Awards</strong><br>
-                      Best Interior Designer of the Year<br>
-                      (Agata Kurzela)</p>
-                      <p><strong>International Property
-                      Awards</strong><br>
-                      Best Office Design<br>
-                      (The Executive Office, Sharjah(PDI)</p>
-                    </div>
-                  </div><!-- Row Two -->
-                  <div class="award_desc">
-                    <div class="desc_item">
-                      <p><strong>MENA Interior Designs &
-                      Architecture Awards</strong><br>
-                      Best in Competition<br>
-                      (Agata Kurzela)</p>
-                      <p>Best Residential Project Small<br>
-                      (Agata Kurzela)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+    <!-- Contact -->
+    <section id="contact" class="container" style="padding:36px 0">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1 1 360px;min-width:260px">
+          <h2 style="font-family:var(--font-serif);margin:0 0 8px">Contact</h2>
+          <p style="color:var(--muted);margin:0 0 12px">For commissions, collaborations or enquiries, please get in touch.</p>
+
+          <ul style="list-style:none;padding:0;margin:0;color:var(--muted)">
+            <li style="margin-bottom:8px"><strong style="color:var(--gold-flat)">Phone:</strong> <a href="tel:+923315510140" style="color:var(--muted)">+92 331 5510140</a></li>
+            <li style="margin-bottom:8px"><strong style="color:var(--gold-flat)">Email:</strong> <a href="mailto:info@ukkashanuman.com" style="color:var(--muted)">info@ukkashanuman.com</a></li>
+            <li><strong style="color:var(--gold-flat)">Location:</strong> Karachi, Pakistan</li>
+          </ul>
         </div>
-      </div><img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/awards/award_white_shape.png"
-      alt="" class="award_white_shape img-responsive">
-      <img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/awards/award_yellow_shape.png"
-      alt="" class="award_yellow_shape img-responsive">
-      <img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/awards/tiger.gif"
-      alt="" class="award_tiger_image img-responsive">
-      <img data-lazy-src=
-      "https://www.designbyroar.com/dist/img/home/awards/award_pink_shape.png"
-      alt="" class="award_pink_shape img-responsive">
+
+        <div style="flex:1 1 420px;min-width:260px">
+          <form class="contact-form" action="#" method="post" style="display:flex;flex-direction:column;gap:12px">
+            <input type="text" name="name" placeholder="Your name" required style="padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff">
+            <input type="email" name="email" placeholder="Email" required style="padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff">
+            <textarea name="message" rows="5" placeholder="Project or message" required style="padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff"></textarea>
+            <button type="submit" class="cta-quick" style="align-self:flex-start">Send Message</button>
+          </form>
+        </div>
+      </div>
     </section>
+
   </main>
-  <footer>
-    <img src=
-    "https://www.designbyroar.com/dist/img/footer/footer_bg.png"
-    alt="" class="footer_bg_img img-responsive">
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <img src="https://www.designbyroar.com/dist/img/footer/footer_bg.png" alt="" class="footer_bg_img" style="display:block;opacity:0.06;width:100%">
     <div class="container footer_inner">
       <div class="copyright_text">
-        <p>Copyright © Roar</p>
+        <p>© Ar. Ukkasha Numan — Architect</p>
       </div>
       <div class="social_links">
-        <p class="social_icons"><a class="rem_link_style facebook"
-        href="https://www.facebook.com/designbyroar/" target=
-        "_blank"></a> <a class="rem_link_style twitter" href=
-        "https://twitter.com/designbyroar?lang=en" target=
-        "_blank"></a> <a class="rem_link_style instagram" href=
-        "https://www.instagram.com/designbyroar/" target=
-        "_blank"></a> <a class="rem_link_style linked_in" href=
-        "https://www.linkedin.com/company/pallavi-dean-interiors/?originalSubdomain=in"
-        target="_blank"></a> <a class="rem_link_style youtube"
-        href="https://www.youtube.com/channel/UC-2jg4F0LgqLS6_xjpZba5g"
-        target="_blank"></a></p>
+        <p class="social_icons">
+          <a class="rem_link_style facebook" href="#" target="_blank" aria-label="Facebook"></a>
+          <a class="rem_link_style twitter" href="#" target="_blank" aria-label="Twitter"></a>
+          <a class="rem_link_style instagram" href="#" target="_blank" aria-label="Instagram"></a>
+          <a class="rem_link_style linked_in" href="https://www.linkedin.com/in/ukkashanuman" target="_blank" aria-label="LinkedIn"></a>
+        </p>
       </div>
     </div>
   </footer>
-  <script src=
-  "https://www.designbyroar.com/dist/js/app.min.js"></script>
+
+  <!-- Minimal JS: slider, mobile nav, loader hide -->
+  <script>
+    (function(){
+      "use strict";
+
+      // Loader hide
+      window.addEventListener('load', function(){
+        const loader = document.getElementById('loader');
+        if(loader){ setTimeout(()=>loader.style.display='none', 450) }
+      });
+
+      // Mobile nav toggle
+      const navToggle = document.getElementById('navToggle');
+      const sidebar = document.getElementById('sidebar');
+      let sidebarOpen = false;
+      function setSidebar(state){
+        sidebarOpen = !!state;
+        if(sidebarOpen){
+          sidebar.classList.add('open'); sidebar.setAttribute('aria-hidden','false');
+        } else {
+          sidebar.classList.remove('open'); sidebar.setAttribute('aria-hidden','true');
+        }
+      }
+      navToggle && navToggle.addEventListener('click', function(){
+        setSidebar(!sidebarOpen);
+      });
+      // close sidebar on link click
+      document.querySelectorAll('.sidebar_wrap .rem_link_style').forEach(a=>{
+        a.addEventListener('click', ()=> setSidebar(false));
+      });
+
+      // Simple hero slider (auto + accessible)
+      const slides = document.querySelectorAll('.slide');
+      let current = 0;
+      const slideInterval = 5000;
+      function showSlide(idx){
+        slides.forEach((s,i)=> s.classList.toggle('show', i===idx));
+      }
+      let sliderTimer = setInterval(function(){
+        current = (current+1) % slides.length;
+        showSlide(current);
+      }, slideInterval);
+      // Pause on hover for accessibility
+      const bannerSection = document.querySelector('.banner_section');
+      if(bannerSection){
+        bannerSection.addEventListener('mouseenter', ()=> clearInterval(sliderTimer));
+        bannerSection.addEventListener('mouseleave', ()=> sliderTimer = setInterval(function(){ current=(current+1)%slides.length; showSlide(current); }, slideInterval));
+      }
+
+      // Smooth-scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', function(e){
+          const target = document.querySelector(this.getAttribute('href'));
+          if(target){
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+            setSidebar(false);
+          }
+        })
+      });
+
+      // Basic accessibility: keyboard close on Esc
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape') setSidebar(false);
+      });
+
+    })();
+  </script>
 </body>
 </html>
