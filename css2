@@ -1,0 +1,14 @@
+﻿@font-face {
+  font-family: 'Spectral';
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url(s/spectral/v15/rnCu-xNNww_2s0amA9M8qrXHafM.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Spectral';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(s/spectral/v15/rnCs-xNNww_2s0amA9v2s13G.ttf) format('truetype');
+}
